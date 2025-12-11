@@ -134,26 +134,48 @@ body {
     position: fixed;
     top: var(--header-height);
     right: -100%;
-    width: 80%;
-    height: 100%;
-    padding: 2rem;
+    width: 70%;
+    height: calc(100vh - var(--header-height));
+    padding: 2rem 1.5rem;
     background-color: var(--primary-blue);
-    transition: .5s;
-    white-space: nowrap; /* Prevent text wrapping */
+    transition: right 0.5s ease;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
   }
 }
 
 .nav__item {
-  margin-bottom: var(--mb-4);
-  white-space: nowrap; /* Prevent text wrapping */
-  margin-right: 1.5rem; /* Add some space between items */
+  margin-bottom: 1.5rem;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav__item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .nav__link {
   position: relative;
-  color: var(--primary-blue);
-  transition: color 0.3s ease;
-  text-decoration: none; /* Remove underline from all navigation links */
+  color: white;
+  transition: color 0.3s ease, padding 0.3s ease;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+/* Change link color in mobile menu */
+@media screen and (max-width: 767px) {
+  .nav__link {
+    color: white;
+  }
+  .nav__link:hover,
+  .nav__link.active-link {
+    color: var(--aqua-green);
+  }
 }
 
 .nav__link:hover {
@@ -194,6 +216,41 @@ body {
 /*=== Show menu ===*/
 .show {
   right: 0;
+  display: block;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    right: -100%;
+    opacity: 0;
+  }
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+/* Add overlay when menu is open */
+.nav__overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.nav__overlay.show {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /*===== HOME =====*/
